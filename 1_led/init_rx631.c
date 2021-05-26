@@ -35,12 +35,8 @@ void init_rx631(void){
 	while(RTC.RCR2.BIT.RESET != 0); // Wait until RESET=0
 
 	// Disable RTC interrupt requests
-	RTC.RCR1.BIT.AIE        = 0;    // Alarm interrupt disable
-	RTC.RCR1.BIT.CIE        = 0;    // Carry interrupt disable
-	RTC.RCR1.BIT.PIE        = 0;    // Period interrupt disable
-	while(RTC.RCR1.BIT.AIE != 0);   // wait until AIE=0
-	while(RTC.RCR1.BIT.CIE != 0);   // wait until CIE=0
-	while(RTC.RCR1.BIT.PIE != 0);   // wait until PIE=0
+	RTC.RCR1.BYTE        = 0x00;    // Alarm interrupt disable
+	while(RTC.RCR1.BYTE != 0x00);   // wait until PIE=0
 	/*---- End of SUBCLK and RTC Initialization ----*/
 
 	// I/O setting
