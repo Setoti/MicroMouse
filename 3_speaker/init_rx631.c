@@ -69,7 +69,7 @@ void init_cmt0(void){
 	MSTP(CMT0) = 0;          // CMT0 Module Stop Release
 
 	CMT.CMSTR0.BIT.STR0 = 0; // CMT0 Stop
-	CMT0.CMCR.WORD = 0x00C1; // interrupt enabled and PCLK/512
+	CMT0.CMCR.WORD = 0x00C1; // interrupt enabled and PCLK/32
 	CMT0.CMCOR = 37499;      // Set interrupt cycle to 24ms
 
 	IPR(CMT0,CMI0) = 10;     // Priority Level 10
@@ -89,8 +89,6 @@ void init_cmt1(void){
 
 	IPR(CMT1,CMI1) = 9;      // Priority Level 9
 	IEN(CMT1,CMI1) = 1;      // Interrupt enabled
-
-	CMT.CMSTR0.BIT.STR1 = 1; // CMT1 Start
 }
 
 /*---- MTU3 Initialization ----*/
@@ -104,9 +102,9 @@ void init_mtu3(void){
 	MPC.PWPR.BYTE       = 0x80; // Reprotect
 	PORT1.PMR.BIT.B4    = 1;    // set to Peripheral
 
-    MTU3.TMDR.BIT.MD   = 0x2;   // PWM mode1
-    MTU3.TIORH.BIT.IOA = 0x5;   // Initial output HIGH, Compare match LOW
-    MTU3.TIORH.BIT.IOB = 0x6;   // Initial output HIGH, Compare match HIGH
+	MTU3.TMDR.BIT.MD   = 0x2;   // PWM mode1
+	MTU3.TIORH.BIT.IOA = 0x5;   // Initial output HIGH, Compare match LOW
+	MTU3.TIORH.BIT.IOB = 0x6;   // Initial output HIGH, Compare match HIGH
 	MTU3.TCR.BIT.TPSC  = 0x1;   // PCLK/4
 	MTU3.TCR.BIT.CKEG  = 0x0;   // count by riging edge
 	MTU3.TCR.BIT.CCLR  = 0x2;   // Clear by compare match TGRB

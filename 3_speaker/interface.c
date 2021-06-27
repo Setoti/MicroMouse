@@ -28,6 +28,8 @@ void SPK_CtrlCnt(void){
 	if(spk_cnt==0){
 		MTU.TSTR.BIT.CST3 = 0;
 		MTU3.TCNT = 0;
+		CMT.CMSTR0.BIT.STR1 = 0;
+		CMT1.CMCNT = 0;
 	}
 }
 
@@ -37,4 +39,5 @@ void SPK_Soundout(NOTE spk_note, unsigned char l_spk_cnt){
 	MTU3.TGRA = spk_note>>2;
 	MTU3.TGRB = spk_note;
 	MTU.TSTR.BIT.CST3 = 1;
+	CMT.CMSTR0.BIT.STR1 = 1;
 }
