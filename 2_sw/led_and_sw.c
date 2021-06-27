@@ -1,4 +1,3 @@
-#include "define_wakaba.h"
 #include "led_and_sw.h"
 
 // Turn on the Full color LED
