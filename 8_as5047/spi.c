@@ -13,24 +13,26 @@ void SPI_WriteAS5047(u16 address, u16 data){
 	CS_AS5047 = ASSERT;  // Assert AS5047
 
 	/* make packet */
-	for(i=0;i<14;i++)
-		parity += i >> address;
-	packet = address + ((parity % 2) << 15);
+	packet = address;
+	for(i=0;i<15;i++)
+		parity += (packet >> i) & 1;
+	packet += (parity % 2) << 15;
 
     SPI_SendRecvAS5047(packet);  // Send Address
 
 	CS_AS5047 = NEGATE;  // Negate AS5047
 
-	for(i=0;i<100;i++)   // Wait 500ns
+	for(i=0;i<10;i++)   // Wait 700ns
 		__nop();
 
 	CS_AS5047 = ASSERT;  // Assert AS5047
 
 	/* make packet */
+	packet = data;
 	parity = 0;
-	for(i=0;i<14;i++)
-		parity += i >> data;
-	packet = data + ((parity % 2) << 15);
+	for(i=0;i<15;i++)
+		parity += (packet >> i) & 1;
+	packet += (parity % 2) << 15;
 
     SPI_SendRecvAS5047(packet);  // Send Data
 
@@ -49,29 +51,29 @@ u16 SPI_ReadAS5047(u16 address){
 	/* make packet */
 	packet = 0x4000 + address;
 	for(i=0;i<15;i++)
-		parity += i >> packet;
+		parity += (packet >> i) & 1;
 	packet += (parity % 2) << 15;
 
     SPI_SendRecvAS5047(packet);  // Send Address
 
 	CS_AS5047 = NEGATE;  // Negate AS5047
 
-	for(i=0;i<10;i++)   // Wait 500ns
+	for(i=0;i<10;i++)   // Wait 700ns
 		__nop();
 
 	CS_AS5047 = ASSERT;  // Assert AS5047
 
 	/* make packet */
-	packet = 0;
+	packet = 0xC000;
 
-    data = SPI_SendRecvAS5047(packet);  // Send Data
+    data = SPI_SendRecvAS5047(packet);  // Receive Data
 
 	CS_AS5047 = NEGATE;  // Negate AS5047
 
 	return data;
 }
 
-/* Sending/receiving data to/from MPU6000 */
+/* Sending/receiving data */
 static u16 SPI_SendRecvAS5047(u32 packet){
 	u16 data;
 

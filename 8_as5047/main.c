@@ -16,7 +16,7 @@ void main(void){
 			g_flag = 0;  // Clear flag
 
 			// Read angular velocity
-			rd_data = SPI_ReadAS5047(AS5047_ANGLE);
+			rd_data = SPI_ReadAS5047(AS5047_ANGLECOM);
 			data = (rd_data & 0x3FFF) * 360 / 16384;
 			sci_printf("%u\r\n", data);
 		}
