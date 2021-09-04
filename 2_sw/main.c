@@ -1,9 +1,6 @@
 #include "define_wakaba.h"
 #include "led_and_sw.h"
 
-/*** Global variables ***/
-volatile unsigned char g_sw_chg = 0;
-
 void main(void){
 	unsigned char led_color = 0;
 

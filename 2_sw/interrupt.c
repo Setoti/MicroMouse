@@ -1,4 +1,3 @@
-#include "define_wakaba.h"
 #include "led_and_sw.h"
 #pragma section P PIntPRG
 
@@ -11,4 +10,3 @@ static void CMT0_CMI0(void);  // CMT0 CMI0
 void CMT0_CMI0(void){
 	SW_status_check();
 }
-
